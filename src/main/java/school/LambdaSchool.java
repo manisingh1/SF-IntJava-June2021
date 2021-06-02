@@ -8,6 +8,7 @@ import java.util.List;
 interface Criterion<E> {
   boolean test(E s);
 }
+
 public class LambdaSchool {
   public static <E> void showAll(List<E> roster) {
     for (E s : roster) {
@@ -36,6 +37,11 @@ public class LambdaSchool {
 
     System.out.println("-----------------------------");
     // less-smart students gpa < 3.5
+    showAll(getByCriterion(roster,
+    (Student s) -> {
+      return s.getGpa() < 3.5;
+    }
+    ));
     System.out.println("-----------------------------");
     // students with names shorter than 4 characters
     System.out.println("-----------------------------");

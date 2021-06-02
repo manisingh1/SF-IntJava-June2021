@@ -44,8 +44,51 @@ public class LambdaSchool {
     ));
     System.out.println("-----------------------------");
     // students with names shorter than 4 characters
+    showAll(getByCriterion(roster,
+        (Student s) -> {
+          return s.getName().length() < 4;
+        }
+        ));
     System.out.println("-----------------------------");
     // students with more than 3 courses
+    showAll(getByCriterion(roster,
+        (Student s) -> {
+          return s.getCourses().size() > 3;
+        }
+
+        ));
     System.out.println("-----------------------------");
+
+    System.out.println("-----------------------------");
+    // less-smart students gpa < 3.5
+    showAll(getByCriterion(roster,
+        (Student s) -> {
+          return s.getGpa() < 3.5;
+        }
+    ));
+    System.out.println("-----------------------------");
+    // students with names shorter than 4 characters
+    showAll(getByCriterion(roster,
+// BLOCK LAMBDA has a FULL method body ( loops, try/catch, complex calculations, local var decls
+//        (String s) -> {
+//        (var s) -> {
+//        (s) -> {
+//        s -> {
+//          return s.getName().length() < 4;
+//        }
+/// IFF lambda function body is of the form "return <expr>;" (NOTHING MORE)
+//  can replace with <expr>
+// "expression lambda"
+        s -> s.getName().length() < 4
+    ));
+    System.out.println("-----------------------------");
+    // students with more than 3 courses
+    showAll(getByCriterion(roster, s -> s.getCourses().size() > 3));
+    System.out.println("-----------------------------");
+//    (String s, String t) -> {...}
+//    (@Deprecated var s, var t) -> {...}
+//    (s, t) -> {...}
+//    () -> {} // GOOD (given context :)
+//    -> {} // Headless?? BAD
   }
 }

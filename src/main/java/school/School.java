@@ -1,12 +1,13 @@
 package school;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-interface Criterion<E> {
-  boolean test(E s);
-}
+//interface Criterion<E> {
+//  boolean test(E s);
+//}
 
 //interface StudentCriterion {
 //  boolean test(Student s);
@@ -101,5 +102,40 @@ public class School {
     System.out.println("--------------");
     List<String> names = List.of("Fred", "Jim", "Sheila", "Alice");
     showAll(getByCriterion(names, new LongStringCriterion()));
+
+    // ??? MUST BE a Criterion<String> or the code won't compile
+//    showAll(getByCriterion(names, ???));
+//    showAll(getByCriterion(names, /* something incomplete -- use for building Criterion<String> */));
+    showAll(getByCriterion(names,
+//    new class LongStringCriterion implements Criterion<String>
+//    {
+//      @Override
+      /*public boolean test*/(String s) -> {
+        return s.length() > 4;
+      }
+//    }
+        ));
+
+    showAll(getByCriterion(names,
+          (String s) -> {
+            return s.length() > 4;
+          }
+        ));
+
+//    Criterion<String> cs;
+//    cs =
+    Object cs =
+        (Criterion<String>)((String s) -> {
+          return s.length() > 4;
+        });
+
+    Object obj = cs;
+
+    System.out.println("instanceof Criterion? " + (cs instanceof Criterion));
+    System.out.println("class of cs is " + cs.getClass());
+    Method[] ma = cs.getClass().getMethods();
+    for (Method m : ma) {
+      System.out.println(">> " + m);
+    }
   }
 }

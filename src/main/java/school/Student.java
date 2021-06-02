@@ -7,12 +7,24 @@ class Person {
   Person(String name) {}
 }
 
+class EnthusiasticStudent extends Student {
+  private double enthusiasmMultiplier;
+  EnthusiasticStudent(String name, double gpa, List<String> courses, double enthusiamMultipler) {
+    super(name, gpa, courses);
+    this.enthusiasmMultiplier = enthusiamMultipler;
+  }
+}
+
 public class Student/* extends Person */{
   private String name;
   private double gpa;
   private List<String> courses; // Set is "tricky" (but arguably better here...)
 
-  private Student(String name, double gpa, List<String> courses) {
+  // new causes allocation and zeroing of memory for THIS SPECIFIC object
+  // constructors can ONLY return a NEW object of EXACTLY the specified type,
+  // or an exception
+  /*private*/ Student(String name, double gpa, List<String> courses) {
+
     // initialize "parent class" aspects.
 //    super(name); // if you don't write this, the compiler generates it!
 //    super();
@@ -22,9 +34,18 @@ public class Student/* extends Person */{
     this.courses = courses;
   }
 
+  // Factories (any method that returns something) can return:
+  // A new object
+  // A preexisting object
+  // Of any assignment compatible type
+  // or an exception
   public static Student of(String name, double gpa, String ... courses) {
 //    return new Student(name, gpa, Arrays.asList(courses));
-    return new Student(name, gpa, List.of(courses)); // Java 9, "truly" unmodifiable list
+    if (courses.length >= 4) {
+      return new EnthusiasticStudent(name, gpa, List.of(courses), 1.1);
+    } else {
+      return new Student(name, gpa, List.of(courses)); // Java 9, "truly" unmodifiable list
+    }
   }
 
   public static boolean isValid(String name, double gpa) {

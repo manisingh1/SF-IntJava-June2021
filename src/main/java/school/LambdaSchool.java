@@ -5,8 +5,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+class UseOverride extends Object {
+  @Override
+  public String toString() {
+    return "I'm a UseOverride";
+  }
+}
+
+@FunctionalInterface
 interface Criterion<E> {
   boolean test(E s);
+//  void bad();
+  static void doStuff() {}
+  default void doMoreStuff() {}
 }
 
 public class LambdaSchool {
@@ -55,7 +66,6 @@ public class LambdaSchool {
         (Student s) -> {
           return s.getCourses().size() > 3;
         }
-
         ));
     System.out.println("-----------------------------");
 
@@ -90,5 +100,20 @@ public class LambdaSchool {
 //    (s, t) -> {...}
 //    () -> {} // GOOD (given context :)
 //    -> {} // Headless?? BAD
+
+    List<Student> mutableList = new ArrayList<>(roster);
+//    mutableList.add(null);
+    System.out.println(mutableList);
+    System.out.println("ordered by descending gpa");
+//    int a;
+    mutableList.sort(
+        (a, b) -> Double.compare(b.getGpa(), a.getGpa())
+    );
+    System.out.println(mutableList);
+    System.out.println("ordered by enthusiam");
+    mutableList.sort(
+        (a, b) -> Integer.compare(a.getCourses().size(), b.getCourses().size())
+    );
+    System.out.println(mutableList);
   }
 }

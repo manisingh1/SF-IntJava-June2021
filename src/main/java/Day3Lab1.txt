@@ -1,0 +1,10 @@
+All starting with: students.stream()
+All ending with: .forEach(System.out::println)
+
+Print all students
+Print all student names
+Print "name has grade" for all students
+Print "name takes <n> courses" for all smart students
+Print all courses
+Print all courses taken by students with gpa > 3
+Print "name takes course" for all student/course pairs

@@ -30,7 +30,7 @@ public class School {
     }
   }
 
-  public static <E> List<E> filter(List<E> roster, Predicate<E> crit) {
+  public static <E> List<E> filter(Iterable<E> roster, Predicate<E> crit) {
     List<E> res = new ArrayList<>();
     for (E s : roster) {
       if (crit.test(s)) {

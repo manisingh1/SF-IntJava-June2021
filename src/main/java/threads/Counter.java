@@ -1,7 +1,7 @@
 package threads;
 
 public class Counter {
-  private static long count = 0;
+  private static volatile long count = 0;
 
   public static void main(String[] args) throws Throwable {
 // Lambda implementing the void run() method of the Runnable interface

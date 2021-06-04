@@ -1,11 +1,12 @@
 package threads;
 
 public class Stopper {
-  static boolean stop = false;
+  static /*volatile*/ boolean stop = false;
   public static void main(String[] args) throws Throwable {
     Runnable r = () -> {
       System.out.println("Starting");
       while (!stop)
+        System.out.print(".");
         ;
       System.out.println("stopping");
     };

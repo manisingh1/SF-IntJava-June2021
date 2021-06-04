@@ -71,5 +71,11 @@ public class SimpleStreams {
 //        })
         .flatMap(s -> s.getCourses().stream().map(c -> s.getName() + " takes " + c))
         .forEach(System.out::println);
+
+    System.out.println("curious --------------------------");
+    students.stream()
+        .map(s -> s.getCourses().stream().map(c -> s.getName() + " takes " + c))
+        .flatMap(s -> s)
+        .forEach(System.out::println);
   }
 }

@@ -1,6 +1,7 @@
 package usestream;
 
 import newschool.Student;
+import superiterable.SuperIterable;
 
 import java.util.List;
 
@@ -13,7 +14,13 @@ public class SimpleStreams {
         Student.of("Sheila", 3.9, "Math", "Physics", "Astrophysics", "Quantum Mechanics")
     );
 
-//    students.stream()
+    students.stream()
+        .filter(s -> s.getGpa() > 3.0)
+        .flatMap(s -> s.getCourses().stream())
+        .forEach(System.out::println);
+
+    students.stream()
+        .forEach(System.out::println);
 
   }
 }
